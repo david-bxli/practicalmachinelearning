@@ -249,8 +249,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 ## [155] &quot;accel_forearm_y&quot;          &quot;accel_forearm_z&quot;         
 ## [157] &quot;magnet_forearm_x&quot;         &quot;magnet_forearm_y&quot;        
 ## [159] &quot;magnet_forearm_z&quot;         &quot;classe&quot;</code></pre>
-<p>From the headers, we can find several of them are total, average, min, max, standard deviation, variance of data, and also part of them are raw data from x,y and z axis. After further investigation, we can also exclude amplitude, kurtosis and skewness. Obversely, columns such as X, user_name, raw_timestamp_part_1, raw_timestamp_part_2, cvtd_timstamp, new_window, num_window should also be excluded</p>
-<p>Then, we have 16 columns left</p>
+<p>From the headers, we can find several of them are total, average, min, max, standard deviation, variance of data, and also part of them are raw data from x,y and z axis. After further investigation, we can also exclude amplitude, kurtosis and skewness.</p>
+<p>Then, we have 20 columns left</p>
 <pre class="r"><code>original_train&lt;-original_train[, !grepl(&quot;^var.*&quot;,names(original_train))&amp;!grepl(&quot;^stddev.*&quot;,names(original_train))&amp;!grepl(&quot;^avg.*&quot;,names(original_train))&amp;!grepl(&quot;^min.*&quot;,names(original_train))&amp;!grepl(&quot;^max.*&quot;,names(original_train))&amp;!grepl(&quot;^total.*&quot;,names(original_train))&amp;!grepl(&quot;.*_x$&quot;,names(original_train))&amp;!grepl(&quot;.*_y$&quot;,names(original_train))&amp;!grepl(&quot;.*_z$&quot;,names(original_train))&amp;!grepl(&quot;^amplitude.*&quot;,names(original_train))&amp;!grepl(&quot;^kurtosis.*&quot;,names(original_train))&amp;!grepl(&quot;^skewness.*&quot;,names(original_train))]
 
 names(original_train)</code></pre>
@@ -281,11 +281,11 @@ testing&lt;-original_train[-inTrain,]</code></pre>
 ##                      Number of trees: 500
 ## No. of variables tried at each split: 21
 ## 
-##         OOB estimate of  error rate: 0.03%
+##         OOB estimate of  error rate: 0.02%
 ## Confusion matrix:
 ##      A    B    C    D    E  class.error
-## A 3347    1    0    0    0 0.0002986858
-## B    1 2278    0    0    0 0.0004387889
+## A 3348    0    0    0    0 0.0000000000
+## B    0 2278    1    0    0 0.0004387889
 ## C    0    1 2053    0    0 0.0004868549
 ## D    0    0    0 1930    0 0.0000000000
 ## E    0    0    0    0 2165 0.0000000000</code></pre>
@@ -294,8 +294,8 @@ testing&lt;-original_train[-inTrain,]</code></pre>
 table(pred, testing$classe)</code></pre>
 <pre><code>##     
 ## pred    A    B    C    D    E
-##    A 2232    0    0    0    0
-##    B    0 1518    0    0    0
+##    A 2231    0    0    0    0
+##    B    1 1518    0    0    0
 ##    C    0    0 1368    0    0
 ##    D    0    0    0 1286    0
 ##    E    0    0    0    0 1442</code></pre>
